@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전국 공영도매시장 실시간 경매정보</title>
+    <!-- 폰트 적용 (Pretendard) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- 아이콘 적용 (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Chart.js 적용 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-wrapper">
+                    <i class="ph-fill ph-storefront logo-icon"></i>
+                    <h1 class="title">도매시장 실시간 경매 조회</h1>
+                </div>
+                <p class="subtitle">전국 공영도매시장의 실시간 경매 현황을 빠르게 확인하세요.</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <section class="search-section card">
+                <form id="search-form" class="search-form">
+                    <div class="form-group">
+                        <label for="date-input"><i class="ph ph-calendar-blank"></i> 경매 일자</label>
+                        <input type="date" id="date-input" required class="input-field">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="market-select"><i class="ph ph-map-pin"></i> 도매 시장</label>
+                        <div class="select-wrapper">
+                            <select id="market-select" required class="input-field">
+                                <option value="" disabled selected>도매시장을 선택해주세요</option>
+                                <!-- JS로 채워짐 -->
+                            </select>
+                            <i class="ph ph-caret-down select-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-actions hidden">
+                        <button type="submit" class="btn btn-primary" id="search-btn">
+                            <i class="ph ph-magnifying-glass"></i> <span id="btn-text">조회하기</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="results-section">
+                <!-- 초기 상태 안내 -->
+                <div id="empty-state" class="empty-state">
+                    <div class="empty-icon-wrapper">
+                        <i class="ph-duotone ph-magnifying-glass"></i>
+                    </div>
+                    <h2>경매 정보를 조회해보세요</h2>
+                    <p>원하시는 날짜와 도매시장을 선택하여 검색하시면<br>실시간 경매 내역을 확인할 수 있습니다.</p>
+                </div>
+
+                <!-- 로딩 인디케이터 -->
+                <div id="loading-state" class="loading-state hidden">
+                    <div class="spinner"></div>
+                    <p>경매 정보를 불러오는 중입니다...</p>
+                </div>
+
+                <!-- 결과 테이블 -->
+                <div id="results-container" class="results-container hidden card">
+                    <div class="results-header">
+                        <h2 class="results-title"><i class="ph-fill ph-chart-bar"></i> 조회 결과</h2>
+                        <div class="results-actions">
+                            <select id="corp-filter" class="filter-select hidden">
+                                <option value="all">모든 법인</option>
+                            </select>
+                            <select id="pkg-filter" class="filter-select hidden">
+                                <option value="all">모든 단위/포장</option>
+                            </select>
+                            <div class="results-meta">
+                                총 <span id="total-count" class="highlight">0</span>건의 경매 데이터가 있습니다.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 차트 컨테이너 -->
+                    <div class="chart-container" style="margin-bottom: 2rem; position: relative; height: 300px;">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th class="sortable hidden" data-sort="scsbdDt">낙찰일시 <i class="ph ph-caret-down sort-icon"></i></th>
+                                    <th class="sortable" data-sort="corpNm">법인명 <i class="ph ph-caret-down sort-icon"></i></th>
+                                    <th class="hidden">상품 정보</th>
+                                    <th class="sortable" data-sort="pkgSpec">단위/포장 <i class="ph ph-caret-down sort-icon"></i></th>
+                                    <th class="text-right sortable" data-sort="price">단량당 낙찰가 <i class="ph ph-caret-down sort-icon"></i></th>
+                                    <th class="text-right sortable" data-sort="qty">수량 <i class="ph ph-caret-down sort-icon"></i></th>
+                                    <th class="sortable" data-sort="origin">원산지 <i class="ph ph-caret-down sort-icon"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody id="results-body">
+                                <!-- JS로 데이터 생성 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- 더보기 버튼 (페이지네이션) -->
+                    <div class="pagination-container hidden" id="pagination-container">
+                        <button id="load-more-btn" class="btn btn-secondary">
+                            <i class="ph ph-plus"></i> 더 불러오기
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 에러 상태 -->
+                <div id="error-state" class="error-state hidden card">
+                    <i class="ph-fill ph-warning-circle error-icon"></i>
+                    <h3 id="error-title">데이터를 불러올 수 없습니다</h3>
+                    <p id="error-message">잠시 후 다시 시도해주세요.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 스크립트 연결 -->
+    <script src="/static/app.js"></script>
+</body>
+</html>

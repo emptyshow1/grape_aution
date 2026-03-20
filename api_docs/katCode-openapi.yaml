@@ -1,0 +1,594 @@
+openapi: 3.0.3
+info:
+  title: 한국농수산식품유통공사 농축수산물 표준코드 API
+  version: 1.0.0
+  description: 업로드된 엑셀 명세를 기준으로 변환한 OpenAPI 문서입니다. 원본 명세에 없는 인증 방식, 오류 응답 상세, 실제 샘플
+    payload는 추정하지 않았습니다.
+servers:
+- url: https://apis.data.go.kr
+  description: 공공데이터포털 OpenAPI Gateway
+tags:
+- name: katCode
+  description: 농축수산물 표준코드 조회
+paths:
+  /B552845/katCode/units:
+    get:
+      tags:
+      - katCode
+      operationId: units
+      summary: 단위코드
+      description: 한국농수산식품유통공사_농축수산물 표준코드 - 단위코드 조회
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[unit_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 단위 코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자','로 다중선택)
+        schema:
+          type: string
+          example: unit_cd
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnitsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UnitsResponse'
+  /B552845/katCode/sizes:
+    get:
+      tags:
+      - katCode
+      operationId: sizes
+      summary: 크기코드
+      description: 한국농수산식품유통공사_농축수산물 표준코드 - 크기코드 조회
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[sz_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 크기 코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자','로 다중선택)
+        schema:
+          type: string
+          example: sz_cd
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SizesResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/SizesResponse'
+  /B552845/katCode/wholesaleMarkets:
+    get:
+      tags:
+      - katCode
+      operationId: wholesaleMarkets
+      summary: 도매시장코드
+      description: 한국농수산식품유통공사_농축수산물 표준코드 - 도매시장코드 조회
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[whsl_mrkt_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 도매시장 코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자','로 다중선택)
+        schema:
+          type: string
+          example: whsl_mrkt_cd
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WholesaleMarketsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/WholesaleMarketsResponse'
+  /B552845/katCode/corps:
+    get:
+      tags:
+      - katCode
+      operationId: corps
+      summary: 법인코드
+      description: 한국농수산식품유통공사_농축수산물 표준코드 - 법인코드 조회
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[corp_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 법인코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자','로 다중선택)
+        schema:
+          type: string
+          example: corp_cd
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorpsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/CorpsResponse'
+  /B552845/katCode/placeOrigins:
+    get:
+      tags:
+      - katCode
+      operationId: placeOrigins
+      summary: 산지코드
+      description: 한국농수산식품유통공사_농축수산물 표준코드 - 산지코드 조회
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[plor_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 원산지코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자','로 다중선택)
+        schema:
+          type: string
+          example: plor_cd
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaceOriginsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PlaceOriginsResponse'
+  /B552845/katCode/packagings:
+    get:
+      tags:
+      - katCode
+      operationId: packagings
+      summary: 포장코드
+      description: 한국농수산식품유통공사_농축수산물 표준코드 - 포장코드 조회
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[pkg_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 포장 코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자','로 다중선택)
+        schema:
+          type: string
+          example: pkg_cd
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PackagingsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PackagingsResponse'
+  /B552845/katCode/grades:
+    get:
+      tags:
+      - katCode
+      operationId: grades
+      summary: 등급코드
+      description: 한국농수산식품유통공사_농축수산물 표준코드 - 등급코드 조회
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[grd_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 등급 코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자','로 다중선택)
+        schema:
+          type: string
+          example: grd_cd
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GradesResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GradesResponse'
+  /B552845/katCode/goods:
+    get:
+      tags:
+      - katCode
+      operationId: goods
+      summary: 품목코드
+      description: 한국농수산식품유통공사_농축수산물 표준코드 - 품목코드 조회
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[gds_lclsf_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 상품 대분류코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: cond[gds_mclsf_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 상품 중분류코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: cond[gds_sclsf_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 상품 소분류코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자','로 다중선택)
+        schema:
+          type: string
+          example: gds_lclsf_cd,gds_lclsf_nm
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoodsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GoodsResponse'
+components:
+  schemas:
+    ResponseHeader:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: 결과코드
+        resultMsg:
+          type: string
+          description: 결과메시지
+    ResponseBodyMeta:
+      type: object
+      properties:
+        numOfRows:
+          type: integer
+          description: 페이지 결과 수
+        pageNo:
+          type: integer
+          description: 페이지 번호
+        totalCount:
+          type: integer
+          description: 데이터 총 개수
+        dataType:
+          type: string
+          description: 응답타입
+    UnitsItem:
+      type: object
+      properties:
+        unit_cd:
+          type: string
+          description: 단위코드
+        unit_nm:
+          type: string
+          description: 단위명
+    UnitsResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              allOf:
+              - $ref: '#/components/schemas/ResponseBodyMeta'
+              - type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UnitsItem'
+    SizesItem:
+      type: object
+      properties:
+        sz_cd:
+          type: string
+          description: 크기코드
+        sz_nm:
+          type: string
+          description: 크기명
+    SizesResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              allOf:
+              - $ref: '#/components/schemas/ResponseBodyMeta'
+              - type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SizesItem'
+    WholesaleMarketsItem:
+      type: object
+      properties:
+        whsl_mrkt_cd:
+          type: string
+          description: 도매시장코드
+        whsl_mrkt_nm:
+          type: string
+          description: 도매시장명
+    WholesaleMarketsResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              allOf:
+              - $ref: '#/components/schemas/ResponseBodyMeta'
+              - type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WholesaleMarketsItem'
+    CorpsItem:
+      type: object
+      properties:
+        corp_cd:
+          type: string
+          description: 법인코드
+        corp_nm:
+          type: string
+          description: 법인명
+    CorpsResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              allOf:
+              - $ref: '#/components/schemas/ResponseBodyMeta'
+              - type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CorpsItem'
+    PlaceOriginsItem:
+      type: object
+      properties:
+        plor_cd:
+          type: string
+          description: 원산지코드
+        plor_nm:
+          type: string
+          description: 원산지명
+    PlaceOriginsResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              allOf:
+              - $ref: '#/components/schemas/ResponseBodyMeta'
+              - type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PlaceOriginsItem'
+    PackagingsItem:
+      type: object
+      properties:
+        pkg_cd:
+          type: string
+          description: 포장코드
+        pkg_nm:
+          type: string
+          description: 포장명
+    PackagingsResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              allOf:
+              - $ref: '#/components/schemas/ResponseBodyMeta'
+              - type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PackagingsItem'
+    GradesItem:
+      type: object
+      properties:
+        grd_cd:
+          type: string
+          description: 등급코드
+        grd_nm:
+          type: string
+          description: 등급명
+    GradesResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              allOf:
+              - $ref: '#/components/schemas/ResponseBodyMeta'
+              - type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GradesItem'
+    GoodsItem:
+      type: object
+      properties:
+        gds_lclsf_cd:
+          type: string
+          description: 상품대분류코드
+        gds_lclsf_nm:
+          type: string
+          description: 상품대분류명
+        gds_mclsf_cd:
+          type: string
+          description: 상품중분류코드
+        gds_mclsf_nm:
+          type: string
+          description: 상품중분류명
+        gds_sclsf_cd:
+          type: string
+          description: 상품소분류코드
+        gds_sclsf_nm:
+          type: string
+          description: 상품소분류명
+    GoodsResponse:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              allOf:
+              - $ref: '#/components/schemas/ResponseBodyMeta'
+              - type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GoodsItem'
+  parameters:
+    serviceKey:
+      name: serviceKey
+      in: query
+      required: true
+      description: OpenAPI 인증키
+      schema:
+        type: string
+        maxLength: 100
+    returnType:
+      name: returnType
+      in: query
+      required: false
+      description: 결과 유형
+      schema:
+        type: string
+        enum:
+        - JSON
+        - XML
+        default: JSON
+    pageNo:
+      name: pageNo
+      in: query
+      required: false
+      description: 페이지 번호
+      schema:
+        type: integer
+        default: 1
+    numOfRows:
+      name: numOfRows
+      in: query
+      required: false
+      description: 페이지 결과 수
+      schema:
+        type: integer
+        default: 10
+    selectable:
+      name: selectable
+      in: query
+      required: false
+      description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자 ',' 로 다중선택)
+      schema:
+        type: string

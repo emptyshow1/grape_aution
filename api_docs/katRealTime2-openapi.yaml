@@ -1,0 +1,248 @@
+openapi: 3.0.3
+info:
+  title: 한국농수산식품유통공사_전국 공영도매시장 실시간 경매정보 API
+  version: 1.0.0
+  description: 업로드된 엑셀 명세를 기준으로 변환한 OpenAPI 문서입니다. 원본 명세에 없는 인증 방식, 오류 응답 상세, 실제 샘플 payload는 추정하지 않았습니다.
+servers:
+- url: https://apis.data.go.kr
+  description: 공공데이터포털 OpenAPI Gateway
+tags:
+- name: katRealTime2
+  description: 전국 공영도매시장 실시간 경매정보
+paths:
+  /B552845/katRealTime2/trades2:
+    get:
+      tags:
+      - katRealTime2
+      operationId: trades2
+      summary: 전국 공영도매시장 실시간 경매정보
+      description: 한국농수산식품유통공사_전국 공영도매시장 실시간 경매정보 - 전국 공영도매시장 실시간 경매정보
+      parameters:
+      - $ref: '#/components/parameters/serviceKey'
+      - $ref: '#/components/parameters/returnType'
+      - $ref: '#/components/parameters/pageNo'
+      - $ref: '#/components/parameters/numOfRows'
+      - name: cond[whsl_mrkt_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 도매시장코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: cond[corp_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 법인코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: cond[gds_lclsf_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 상품 대분류코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: cond[gds_mclsf_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 상품 중분류코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: cond[gds_sclsf_cd::EQ]
+        in: query
+        required: false
+        description: 검색값과 상품 소분류코드가 일치하는 데이터를 검색
+        schema:
+          type: string
+      - name: cond[trd_clcln_ymd::EQ]
+        in: query
+        required: true
+        description: 검색값과 거래정산일자가 일치하는 데이터를 검색
+        schema:
+          type: string
+          example: '2026-03-16'
+          format: date
+      - name: cond[scsbd_dt::LIKE]
+        in: query
+        required: false
+        description: 경매일시가 검색값을 포함하는 데이터를 검색
+        schema:
+          type: string
+      - name: selectable
+        in: query
+        required: false
+        description: 응답으로 받고 싶은 컬럼명을 선택하여 검색(구분자 ',' 로 다중선택)
+        schema:
+          type: string
+          example: whsl_mrkt_cd,corp_cd
+      responses:
+        '200':
+          description: 정상 응답
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trades2Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Trades2Response'
+components:
+  parameters:
+    serviceKey:
+      name: serviceKey
+      in: query
+      required: true
+      description: OpenAPI 키
+      schema:
+        type: string
+    returnType:
+      name: returnType
+      in: query
+      required: false
+      description: 결과 유형 (JSON/XML)
+      schema:
+        type: string
+        default: JSON
+        enum:
+        - JSON
+        - XML
+    pageNo:
+      name: pageNo
+      in: query
+      required: false
+      description: 페이지 번호
+      schema:
+        type: integer
+        default: 1
+    numOfRows:
+      name: numOfRows
+      in: query
+      required: false
+      description: 페이지 결과 수
+      schema:
+        type: integer
+        default: 10
+  schemas:
+    ResponseHeader:
+      type: object
+      properties:
+        resultCode:
+          type: string
+          description: 결과코드
+        resultMsg:
+          type: string
+          description: 결과메세지
+    Trades2Item:
+      type: object
+      properties:
+        auctn_seq:
+          type: string
+          description: 경매고유번호
+        scsbd_dt:
+          type: string
+          description: 낙찰일시
+          example: '2026-03-16 14:30:00'
+        trd_clcln_ymd:
+          type: string
+          description: 거래정산일자
+          format: date
+          example: '2026-03-16'
+        whsl_mrkt_cd:
+          type: string
+          description: 도매시장코드
+        whsl_mrkt_nm:
+          type: string
+          description: 도매시장명
+        corp_cd:
+          type: string
+          description: 법인코드
+        corp_nm:
+          type: string
+          description: 법인명
+        gds_lclsf_cd:
+          type: string
+          description: 상품대분류코드
+        gds_lclsf_nm:
+          type: string
+          description: 상품대분류명
+        gds_mclsf_cd:
+          type: string
+          description: 상품중분류코드
+        gds_mclsf_nm:
+          type: string
+          description: 상품중분류명
+        gds_sclsf_cd:
+          type: string
+          description: 상품소분류코드
+        gds_sclsf_nm:
+          type: string
+          description: 상품소분류명
+        corp_gds_cd:
+          type: string
+          description: 법인상품코드
+        corp_gds_item_nm:
+          type: string
+          description: 법인상품품목명
+        corp_gds_vrty_nm:
+          type: string
+          description: 법인상품품종명
+        plor_cd:
+          type: string
+          description: 원산지코드
+        plor_nm:
+          type: string
+          description: 원산지명
+        scsbd_prc:
+          type: string
+          description: 단량당 낙찰가(원)
+        qty:
+          type: string
+          description: 수량
+        unit_qty:
+          type: string
+          description: 단위물량
+        unit_cd:
+          type: string
+          description: 단위코드
+        unit_nm:
+          type: string
+          description: 단위명
+        pkg_cd:
+          type: string
+          description: 포장코드
+        pkg_nm:
+          type: string
+          description: 포장명
+        spm_no:
+          type: string
+          description: 원표번호
+        trd_se:
+          type: string
+          description: 매매방법
+    ResponseBodyTrades2:
+      type: object
+      properties:
+        numOfRows:
+          type: integer
+          description: 페이지 결과 수
+        pageNo:
+          type: integer
+          description: 페이지 번호
+        totalCount:
+          type: integer
+          description: 데이터 총 개수
+        dataType:
+          type: string
+          description: 응답타입
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Trades2Item'
+          description: 응답 데이터 목록
+    Trades2Response:
+      type: object
+      properties:
+        response:
+          type: object
+          properties:
+            header:
+              $ref: '#/components/schemas/ResponseHeader'
+            body:
+              $ref: '#/components/schemas/ResponseBodyTrades2'
