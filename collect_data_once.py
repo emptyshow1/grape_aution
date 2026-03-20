@@ -1,6 +1,6 @@
 import asyncio
-import collector
-import database
+from app import collector
+from app import database
 
 async def main():
     print("=== Initial Data Setup ===")

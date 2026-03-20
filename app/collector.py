@@ -3,7 +3,7 @@ import httpx
 import asyncio
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
-import database
+from app import database
 
 load_dotenv()
 

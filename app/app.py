@@ -6,8 +6,8 @@ from fastapi.responses import FileResponse
 from datetime import datetime
 from dotenv import load_dotenv
 from apscheduler.schedulers.background import BackgroundScheduler
-import database
-import collector
+from app import database
+from app import collector
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
